@@ -11,7 +11,7 @@ namespace ProjectHub.Controllers
 {
     public class TopicController : Controller
     {
-        private readonly ElasticService _elasticService;
+        
 	    private TopicService _topicService;
 	    private PostService _postService;
 
@@ -19,6 +19,8 @@ namespace ProjectHub.Controllers
         {
 	        _topicService = new TopicService();
             _postService = new PostService();
+		    
+
         }
 
         // GET: Topic
@@ -37,7 +39,8 @@ namespace ProjectHub.Controllers
         [HttpPost]
         public ActionResult Create(TopicModel topic)
         {
-            _elasticService.IndexDocument(topic);
+			var elasticService = new ElasticService();
+			elasticService.IndexDocument(topic);
             
             return RedirectToAction(nameof(Index));
         }
