@@ -19,7 +19,10 @@ namespace ProjectHub.Controllers
 			var el = new ElasticService();
 	        var cl = el.GetClient();
 	        var res = cl.Search<PostModel>();
-	        var model = res.Hits.Select(hit => hit.Source).ToList();
+	        var model = res.Hits.Select(hit => {
+				hit.Source.Id = hit.Id;
+				return hit.Source;
+			}).ToList();
 			return View(model);
         }
 
