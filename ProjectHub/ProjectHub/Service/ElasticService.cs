@@ -45,15 +45,6 @@ namespace ProjectHub.Service
 			return _elastic;
 		}
 
-		public ProjectModel  GetProject (string projectName)
-		{
-			var res = _elastic.Search<ProjectModel>(q => q.Query(qm => qm.Term("name.keyword", projectName)));
-			var projectids = res.Hits.Select(m =>
-			{
-				m.Source.Id = m.Id;
-				                                      return m.Source;
-			}).FirstOrDefault();
-			return projectids;
-		}
+	
 	}
 }

@@ -12,20 +12,18 @@ namespace ProjectHub.Controllers
     public class TopicController : Controller
     {
         private readonly ElasticService _elasticService;
+	    private TopicService _topicService;
+	    private PostService _postService;
 
-        public TopicController()
+	    public TopicController()
         {
-            _elasticService = new ElasticService();
+	        _topicService = new TopicService();
         }
 
         // GET: Topic
         public ActionResult Index()
         {
-            var cl = _elasticService.GetClient();
-            var res = cl.Search<TopicModel>();
-            var model = res.Hits.Select(hit => { hit.Source.Id = hit.Id;
-	                                               return hit.Source; }).ToList();
-
+	        var model = _topicService.GetTopics();
             return View(model);
         }
 
@@ -45,7 +43,7 @@ namespace ProjectHub.Controllers
 
         public ActionResult Details(string id)
         {
-            TopicModel topic = _elasticService.GetClient().Get<TopicModel>(id).Source;
+			var topic = _topicService.GetTopic(id);
 
             var model = new TopicDetailDto
             {
