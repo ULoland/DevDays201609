@@ -1,5 +1,5 @@
 ﻿
-@model ProjectHub.Models.ProjectModel
+@model ProjectHub.Models.ProjectCreateViewModel
 
 @{
     ViewBag.Title = "Create Awesome Project";
@@ -12,11 +12,19 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.projectModel.Name, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.projectModel.Name, new { @class = "form-control" })
         </div>
     </div>
+
+    foreach (var topic in Model.availableTopics)
+    {
+        <span>
+            <input style="display:inline-block;" type="checkbox" class="checkbox" name="checkedTopics" value="@topic.Id" id="@topic.Id" />
+            <label for="@topic.Name">@topic.Name</label>
+        </span>
+    }
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

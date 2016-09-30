@@ -191,6 +191,7 @@
     <Compile Include="Models\Dto\TopicDetailDto.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PostModel.cs" />
+    <Compile Include="Models\ProjectCreateViewModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\TopicModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

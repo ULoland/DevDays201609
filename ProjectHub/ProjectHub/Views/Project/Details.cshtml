@@ -6,3 +6,19 @@
 
 <h2>@ViewBag.Title</h2>
 
+<hr />
+<h3>Topics</h3>
+
+@if (Model.Topics != null)
+{
+    foreach (var topics in Model.Topics)
+    {
+        <p>@topics.Name</p>
+    }
+}
+
+
+<hr />
+<h3>Comments</h3>
+
+

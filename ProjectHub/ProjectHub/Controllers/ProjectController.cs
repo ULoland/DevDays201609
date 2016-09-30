@@ -27,17 +27,38 @@ namespace ProjectHub.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var model = new ProjectModel();
+            var model = new ProjectCreateViewModel();
+
+            var el = new ElasticService();
+            var cl = el.GetClient();
+            var res = cl.Search<TopicModel>();
+            var TopicList = res.Hits.Select(hit => {
+                hit.Source.Id = hit.Id;
+                return hit.Source;
+            }).ToList();
+
             
+            model.projectModel = new ProjectModel();
+            model.availableTopics = TopicList;
+
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Create(ProjectModel model)
+        public ActionResult Create(ProjectCreateViewModel model, string[] checkedTopics)
         {
             var el = new ElasticService();
-            el.IndexDocument(model);
-            return View(model);
+            List<TopicModel> topicList = new List<TopicModel>();
+
+            foreach (var items in checkedTopics)
+            {
+                TopicModel topic = el.GetClient().Get<TopicModel>(items).Source;
+                topicList.Add(topic);
+            }
+
+            model.projectModel.Topics = topicList;
+            el.IndexDocument(model.projectModel);
+            return RedirectToAction("Index");
         }
 
         [HttpGet] 
