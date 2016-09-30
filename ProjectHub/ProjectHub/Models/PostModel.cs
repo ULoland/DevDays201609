@@ -7,7 +7,7 @@ namespace ProjectHub.Models
 {
     public class PostModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Heading { get; set; }
         public string PostText { get; set; }
 

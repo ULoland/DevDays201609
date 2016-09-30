@@ -22,7 +22,8 @@ namespace ProjectHub.Controllers
         {
             var cl = _elasticService.GetClient();
             var res = cl.Search<TopicModel>();
-            var model = res.Hits.Select(hit => hit.Source).ToList();
+            var model = res.Hits.Select(hit => { hit.Source.Id = hit.Id;
+	                                               return hit.Source; }).ToList();
 
             return View(model);
         }
