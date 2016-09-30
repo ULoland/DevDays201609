@@ -11,10 +11,12 @@ namespace ProjectHub.Controllers
     public class ProjectController : Controller
     {
 	    private ProjectService _projectService;
+        private TopicService _topicService;
 
 	    public ProjectController()
 	    {
 		    _projectService = new ProjectService();
+            _topicService = new TopicService();
 	    }
 
 	    public ActionResult Index ()
@@ -29,15 +31,8 @@ namespace ProjectHub.Controllers
         {
             var model = new ProjectCreateViewModel();
 
-            var el = new ElasticService();
-            var cl = el.GetClient();
-            var res = cl.Search<TopicModel>();
-            var TopicList = res.Hits.Select(hit => {
-                hit.Source.Id = hit.Id;
-                return hit.Source;
-            }).ToList();
-
-            
+           
+            var TopicList = _topicService.GetTopics();
             model.projectModel = new ProjectModel();
             model.availableTopics = TopicList;
 
