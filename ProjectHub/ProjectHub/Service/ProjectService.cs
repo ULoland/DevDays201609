@@ -31,9 +31,21 @@ namespace ProjectHub.Service
 
 		public ProjectModel GetProject(string id)
 		{
-			
-			ProjectModel model = _elasticService.GetClient().Get<ProjectModel>(id).Source;
+			var elasticHit = _elasticService.GetClient().Get<ProjectModel>(id);
+			ProjectModel model = elasticHit.Source;
+			model.Id = elasticHit.Id;
 			return model;
+		}
+
+		public ProjectModel GetProjectByName(string projectName)
+		{
+			var res = _elasticService.Search<ProjectModel>(q => q.Query(qm => qm.Term("name.keyword", projectName)));
+			var projectids = res.Hits.Select(m =>
+			{
+				m.Source.Id = m.Id;
+				return m.Source;
+			}).FirstOrDefault();
+			return projectids;
 		}
 	}
 }

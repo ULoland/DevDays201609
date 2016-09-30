@@ -36,5 +36,14 @@ namespace ProjectHub.Service
 			}).ToList();
 			return model;
 		}
+
+		public PostModel GetPost(string id)
+		{
+			var elasticHit = _elasticService.GetClient().Get<PostModel>(id);
+			PostModel model = elasticHit.Source;
+			model.Id = elasticHit.Id;
+			return model;
+		}
+
 	}
 }

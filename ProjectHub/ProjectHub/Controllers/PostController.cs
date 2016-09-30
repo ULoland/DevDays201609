@@ -49,11 +49,10 @@ namespace ProjectHub.Controllers
 
             var matches = regex.Matches(model.Heading + " " + model.PostText)
                 .OfType<Match>().Select(m => m.Groups[0].Value).Distinct();
-            var el = new ElasticService();
-
-            foreach (var match in matches)
+	        var projectService = new ProjectService();
+			foreach (var match in matches)
             {
-                var project = el.GetProject(match.Replace("@", ""));
+                var project = projectService.GetProjectByName(match.Replace("@", ""));
                 if (project != null)
                 {
                     model.Heading = model.Heading.Replace(match, match + $"[{project.Id}]");
@@ -71,16 +70,16 @@ namespace ProjectHub.Controllers
 
             var matches = regex.Matches(model.Heading + model.PostText)
                 .OfType<Match>().Select(m => m.Groups[0].Value).Distinct();
-            var el = new ElasticService();
+            var topicservice = new TopicService();
 
             foreach (var match in matches)
             {
-                var topic = el.GetProject(match.Replace("#", ""));
+                var topic = topicservice.GetTopicByName(match.Replace("#", ""));
                 if (topic != null)
                 {
-                    //model.Heading = model.Heading.Replace(match, match + $"[{topic.Id}]");
-                    //model.PostText = model.PostText.Replace(match, match + $"[{topic.Id}]");
-                    //model.Topics.Add(topic);
+                    model.Heading = model.Heading.Replace(match, match + $"[{topic.Id}]");
+                    model.PostText = model.PostText.Replace(match, match + $"[{topic.Id}]");
+                    model.Topics.Add(topic);
                 }
             }
         }
