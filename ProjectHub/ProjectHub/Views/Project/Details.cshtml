@@ -13,7 +13,7 @@
 {
     foreach (var topics in Model.Topics)
     {
-        <p>@Html.ActionLink("#"+ topics.Name, "Details", "Topic", new { id = topics.Id })</p>
+        <p>@Html.ActionLink("#"+ topics.Name, "Details", "Topic", new { id = topics.Id }, null)</p>
     }
 }
 
