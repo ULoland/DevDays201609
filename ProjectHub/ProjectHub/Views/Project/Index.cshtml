@@ -1,9 +1,15 @@
 ﻿@model List<ProjectHub.Models.ProjectModel>
 
-<h1>Title Goes here</h1>
+@{
+    ViewBag.Title = "Projectlist";
+}
+
+<h2>@ViewBag.Title</h2>
 
 @foreach(var project in Model)
 {
-    <p>@project.Name</p>
+    
+    <p>@project.Name [@project.Id] @Html.ActionLink("Details", "Details", new { id = project.Id })</p>
+    
     <hr />
 }

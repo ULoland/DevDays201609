@@ -261,6 +261,7 @@
     <Content Include="Views\Project\Create.cshtml" />
     <Content Include="Views\Topic\Details.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\PostModel.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
