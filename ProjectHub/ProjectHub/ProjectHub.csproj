@@ -198,6 +198,7 @@
     <Compile Include="Service\ElasticService.cs" />
     <Compile Include="Service\PostService.cs" />
     <Compile Include="Service\ProjectService.cs" />
+    <Compile Include="Service\SearchService.cs" />
     <Compile Include="Service\TopicService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="StringExtensions.cs" />
