@@ -1,0 +1,6 @@
+﻿@model ProjectHub.Models.TopicModel
+
+<div>
+    <h3>@Html.Raw(Model.Name.ToStringWithLinks())</h3>
+    <p>@Html.Raw(Model.Description.ToStringWithLinks())</p>
+</div>

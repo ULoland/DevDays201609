@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProjectHub.Service;
 
 namespace ProjectHub.Controllers
 {
@@ -10,7 +11,9 @@ namespace ProjectHub.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+	        var s = new SearchService();
+	        s.Search("git");
+			return View();
         }
 
         public ActionResult About()

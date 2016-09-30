@@ -16,14 +16,14 @@ namespace ProjectHub.Service
 			_elasticService = new ElasticService();
 		}
 
-		public List<dynamic> Search(string query, Dictionary<string, string> filters = null)
+		public Nest.ISearchResponse<dynamic> Search(string query, Dictionary<string, string> filters = null)
 		{
 
 			var qr =
 				_elasticService.GetClient()
 					.Search<dynamic>(q => q.AllTypes().Query(qm => qm.Match(qmm => qmm.Query(query).Field("_all"))));
 
-			return qr.Hits.ToList<dynamic>();
+			return qr;
 		}
 
 	}

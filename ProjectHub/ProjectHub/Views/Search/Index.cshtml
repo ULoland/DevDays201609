@@ -1,4 +1,27 @@
-﻿@model dynamic
+﻿@using ProjectHub.Models
+@model Nest.ISearchResponse<dynamic>
 
 <h3>Search results</h3>
+@foreach (var hit in Model.Hits)
+{
+    if (hit.Source.heading != null) // Postmodel
+    {
+
+        <div>
+            <h3>@Html.Raw(((string) hit.Source.heading).ToStringWithLinks())</h3>
+            <p>@Html.Raw(((string) hit.Source.postText).ToStringWithLinks())</p>
+        </div>
+    }
+    else
+    {
+
+        <div>
+            <h3>@Html.Raw(((string)hit.Source.name).ToStringWithLinks())</h3>
+            <p>@Html.Raw(((string)hit.Source.id).ToStringWithLinks())</p>
+        </div>
+
+    }
+
+}
+
 

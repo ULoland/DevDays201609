@@ -34,7 +34,7 @@
 <div class="container body-content">
     @using (@Html.BeginForm("Index", "Search", FormMethod.Get, new { @class = "form-inline" }))
             {
-        @Html.TextBox("query", new { @class = "input-sm" })
+        @Html.TextBox("query", null, new { @class = "input-sm" })
         <button type="submit">Search</button>
     }
     @RenderBody()
