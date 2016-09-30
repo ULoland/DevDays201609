@@ -11,7 +11,7 @@ namespace ProjectHub.Models
         public string Heading { get; set; }
         public string PostText { get; set; }
 
-        public virtual ProjectModel Project { get; set; }
+        public virtual List<ProjectModel> Project { get; set; }
         public virtual List<TopicModel> Topics { get; set; }
 
     }

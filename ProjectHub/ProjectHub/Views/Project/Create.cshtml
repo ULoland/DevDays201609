@@ -1,0 +1,22 @@
+﻿
+@model ProjectHub.Models.ProjectModel
+
+@{
+    ViewBag.Title = "Create Awesome Project";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+@using (Html.BeginForm("Project", "Create", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.Id);
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProjectName)
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ProjectName)
+        </div>
+    </div>
+
+}
+
