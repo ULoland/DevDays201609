@@ -42,7 +42,10 @@ namespace ProjectHub
                     }
                     text = match.Substring(0, idStart);
                 }
-                value = value.Replace(match, $"<a href=\"{href}\">{text}</a>");
+                if (href == "#")
+                    value = value.Replace(match, text); 
+                else
+                    value = value.Replace(match, $"<a href=\"{href}\">{text}</a>");
             }
             return value;
         }
@@ -72,7 +75,10 @@ namespace ProjectHub
                     }
                     text = match.Substring(0, idStart);
                 }
-                value = value.Replace(match, $"<a href=\"{href}\">{text}</a>");
+                if (href == "#")
+                    value = value.Replace(match, text);
+                else
+                    value = value.Replace(match, $"<a href=\"{href}\">{text}</a>");
             }
             return value;
         }

@@ -40,9 +40,8 @@ namespace ProjectHub.Controllers
         public ActionResult Create(PostModel model)
         {
             ResolveDependencies(ref model);
-			
 			el.IndexDocument(model);
-			return View(new PostModel());
+            return RedirectToAction("Index");
         }
 
         private void ResolveDependencies(ref PostModel model)
