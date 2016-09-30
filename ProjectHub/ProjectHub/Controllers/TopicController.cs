@@ -18,6 +18,7 @@ namespace ProjectHub.Controllers
 	    public TopicController()
         {
 	        _topicService = new TopicService();
+            _postService = new PostService();
         }
 
         // GET: Topic
@@ -49,22 +50,22 @@ namespace ProjectHub.Controllers
             {
                 Name = topic.Name,
                 Description = topic.Description,
-                Posts = GetListOfPostsForTopic(id)
+                Posts = _postService.GetPostsForTopic(id)
             };
 
             return View(model);
         }
 
-        public IEnumerable<PostModel>  GetListOfPostsForTopic(string topicID)
-        {
-            var cl = _elasticService.GetClient();
-            var res = cl.Search<PostModel>(mmd => mmd.Query(mq => mq.Term(qmt => qmt.Id,topicID) ));
-            var posts = res.Hits.Select(hit => {
-                                                   hit.Source.Id = hit.Id;
-                                                   return hit.Source;
-            }).ToList();
-            return posts;
-        }
+        //public IEnumerable<PostModel>  GetListOfPostsForTopic(string topicID)
+        //{
+        //    var cl = _elasticService.GetClient();
+        //    var res = cl.Search<PostModel>(mmd => mmd.Query(mq => mq.Term(qmt => qmt.Id,topicID) ));
+        //    var posts = res.Hits.Select(hit => {
+        //                                           hit.Source.Id = hit.Id;
+        //                                           return hit.Source;
+        //    }).ToList();
+        //    return posts;
+        //}
 
         public ActionResult Edit()
         {
