@@ -14,6 +14,10 @@ namespace ProjectHub.Controllers
             return View();
         }
 
-        //public ActionResult C
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View()
+        }
     }
 }
