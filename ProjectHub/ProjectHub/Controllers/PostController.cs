@@ -63,6 +63,8 @@ namespace ProjectHub.Controllers
                 {
                     model.Heading = model.Heading.Replace(match, match + $"[{project.Id}]");
                     model.PostText = model.PostText.Replace(match, match + $"[{project.Id}]");
+                    if (model.Project == null)
+                        model.Project = new List<ProjectModel>();
                     model.Project.Add(project);
                 }
             }
