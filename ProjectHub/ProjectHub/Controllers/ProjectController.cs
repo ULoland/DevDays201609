@@ -12,11 +12,13 @@ namespace ProjectHub.Controllers
     {
 	    private ProjectService _projectService;
         private TopicService _topicService;
+        private PostService _postService;
 
 	    public ProjectController()
 	    {
 		    _projectService = new ProjectService();
             _topicService = new TopicService();
+            _postService = new PostService();
 	    }
 
 	    public ActionResult Index ()
@@ -60,17 +62,9 @@ namespace ProjectHub.Controllers
         public ActionResult Details(string Id)
         {
 	        var model = _projectService.GetProject(Id);
+            model.Posts = _postService.GetPostsForProject(model.Id).ToList();
             return View(model);
         }
-
-        //[HttpPost]
-        //public ActionResult AddPost(int Id, PostModel Post)
-        //{
-        //    //Find by Projct ID
-        //    //Add post to project
-
-        //    return View();
-        //}
     }
 
 	

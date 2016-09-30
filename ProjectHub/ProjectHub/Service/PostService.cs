@@ -28,7 +28,7 @@ namespace ProjectHub.Service
 		public IEnumerable<PostModel> GetPostsForProject(string projectId)
 		{
 			var cl = _elasticService.GetClient();
-			var res = cl.Search<PostModel>(mmd => mmd.Query(mq => mq.Term("Projects.Id", projectId)));
+			var res = cl.Search<PostModel>(mmd => mmd.Query(mq => mq.Term("project.id", projectId)));
 			var posts = res.Hits.Select(hit => {
 				hit.Source.Id = hit.Id;
 				return hit.Source;
