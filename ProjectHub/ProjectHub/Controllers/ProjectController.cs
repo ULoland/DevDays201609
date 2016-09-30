@@ -12,7 +12,8 @@ namespace ProjectHub.Controllers
     {
         public ActionResult Index ()
         {
-            return View();
+            var model = new List<ProjectModel>();
+            return View(model);
         }
 
         [HttpGet]
