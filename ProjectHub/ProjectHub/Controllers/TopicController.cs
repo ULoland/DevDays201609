@@ -4,11 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProjectHub.Models;
+using ProjectHub.Service;
 
 namespace ProjectHub.Controllers
 {
     public class TopicController : Controller
     {
+        private readonly ElasticService _elasticService;
+
+        public TopicController()
+        {
+            _elasticService = new ElasticService();
+        }
+
         // GET: Topic
         public ActionResult Index()
         {
@@ -31,12 +39,14 @@ namespace ProjectHub.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            var model = new TopicModel();
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Create(TopicModel topic)
         {
+            _elasticService.IndexDocument(topic);
             
             return RedirectToAction(nameof(Index));
         }

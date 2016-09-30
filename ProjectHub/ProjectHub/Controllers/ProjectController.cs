@@ -16,7 +16,7 @@ namespace ProjectHub.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateProject()
+        public ActionResult Create()
         {
             var model = new ProjectModel();
             
@@ -24,7 +24,7 @@ namespace ProjectHub.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateProject(ProjectModel model)
+        public ActionResult Create(ProjectModel model)
         {
             var el = new ElasticService();
             el.IndexDocument(model);
