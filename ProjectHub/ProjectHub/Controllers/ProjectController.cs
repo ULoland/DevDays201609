@@ -41,8 +41,8 @@ namespace ProjectHub.Controllers
         [HttpGet]
         public ActionResult Details(string Id)
         {
-            var model = new ProjectModel();
-            model.Name = "Testing this";
+            var el = new ElasticService();
+            ProjectModel model = el.GetClient().Get<ProjectModel>(Id).Source;
             return View(model);
         }
 
