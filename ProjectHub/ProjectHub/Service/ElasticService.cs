@@ -15,7 +15,6 @@ namespace ProjectHub.Service
 
 		public ElasticService()
 		{
-
 			var nodes = new[] { "http://192.168.43.212:9200/" };
 			
 			var nodeUris = nodes.Select(n => new Uri(n));
