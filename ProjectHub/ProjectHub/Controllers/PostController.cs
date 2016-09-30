@@ -13,6 +13,11 @@ namespace ProjectHub.Controllers
     {
 	    private PostService _postService;
 	    // GET: Post
+	    public PostController()
+	    {
+		    _postService = new PostService();
+	    }
+
         public ActionResult Index()
         {
             

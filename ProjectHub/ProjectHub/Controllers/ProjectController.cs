@@ -12,6 +12,11 @@ namespace ProjectHub.Controllers
     {
 	    private ProjectService _projectService;
 
+	    public ProjectController()
+	    {
+		    _projectService = new ProjectService();
+	    }
+
 	    public ActionResult Index ()
         {
 

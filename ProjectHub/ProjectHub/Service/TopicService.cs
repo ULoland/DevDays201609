@@ -14,10 +14,10 @@ namespace ProjectHub.Service
 		{
 			_elasticService = new ElasticService();
 		}
-		public List<TopicModel> GetTopics()
+		public List<TopicModel> GetTopics(int numberOfTopics=20)
 		{
 			var cl = _elasticService.GetClient();
-			var res = cl.Search<TopicModel>();
+			var res = cl.Search<TopicModel>(sss => sss.Size (numberOfTopics));
 			var model = res.Hits.Select(hit =>
 			{
 				hit.Source.Id = hit.Id;
