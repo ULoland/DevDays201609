@@ -12,11 +12,13 @@ namespace ProjectHub.Controllers
     public class PostController : Controller
     {
 	    private PostService _postService;
+	    private ElasticService el;
 	    // GET: Post
 	    public PostController()
 	    {
 		    _postService = new PostService();
-	    }
+			el = new ElasticService();
+		}
 
         public ActionResult Index()
         {
@@ -38,7 +40,7 @@ namespace ProjectHub.Controllers
         public ActionResult Create(PostModel model)
         {
             ResolveDependencies(ref model);
-			var el = new ElasticService();
+			
 			el.IndexDocument(model);
 			return View(new PostModel());
         }
