@@ -8,7 +8,7 @@ using ProjectHub.Models;
 
 namespace ProjectHub.Service
 {
-	public class ElasticService: ElasticClient
+	public class ElasticService
 	{
 		private ElasticClient _elastic;
 
