@@ -63,6 +63,7 @@ namespace ProjectHub.Controllers
         {
 	        var model = _projectService.GetProject(Id);
             model.Posts = _postService.GetPostsForProject(model.Id).ToList();
+            
             return View(model);
         }
     }
