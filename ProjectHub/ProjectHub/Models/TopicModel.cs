@@ -8,7 +8,7 @@ namespace ProjectHub.Models
 {
     public class TopicModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 		[Keyword]

@@ -41,6 +41,11 @@ namespace ProjectHub.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public ActionResult Details()
+        {
+            return View(new TopicModel());
+        }
+
         public ActionResult Edit()
         {
             return View(new TopicModel());
