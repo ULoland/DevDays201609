@@ -38,6 +38,14 @@ namespace ProjectHub.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public ActionResult Details(string Id)
+        {
+            var model = new ProjectModel();
+            model.Name = "Testing this";
+            return View(model);
+        }
+
         //[HttpPost]
         //public ActionResult AddPost(int Id, PostModel Post)
         //{

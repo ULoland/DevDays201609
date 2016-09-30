@@ -40,7 +40,7 @@ namespace ProjectHub.Controllers
             ResolveDependencies(ref model);
 			var el = new ElasticService();
 			el.IndexDocument(model);
-			return View(model);
+			return View(new PostModel());
         }
 
         private void ResolveDependencies(ref PostModel model)
@@ -52,7 +52,7 @@ namespace ProjectHub.Controllers
         {
             var regex = new Regex(@"(^@|(?<=\s)@\w+)");
 
-            var matches = regex.Matches(model.Heading + model.PostText)
+            var matches = regex.Matches(model.Heading + " " + model.PostText)
                 .OfType<Match>().Select(m => m.Groups[0].Value).Distinct();
             var el = new ElasticService();
 
@@ -81,8 +81,8 @@ namespace ProjectHub.Controllers
                 var topic = el.GetProject(match.Replace("#", ""));
                 if (topic != null)
                 {
-                    model.Heading = model.Heading.Replace(match, match + $"[{topic.Id}]");
-                    model.PostText = model.PostText.Replace(match, match + $"[{topic.Id}]");
+                    //model.Heading = model.Heading.Replace(match, match + $"[{topic.Id}]");
+                    //model.PostText = model.PostText.Replace(match, match + $"[{topic.Id}]");
                     //model.Topics.Add(topic);
                 }
             }

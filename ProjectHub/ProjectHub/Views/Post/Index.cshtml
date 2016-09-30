@@ -9,8 +9,5 @@
 
 @foreach (var post in Model)
 {
-    <div>
-        <h3>@post.Heading</h3>
-        <p>@post.PostText</p>
-    </div>
+    @Html.DisplayFor(m => post)
 }
