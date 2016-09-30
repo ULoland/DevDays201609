@@ -39,7 +39,7 @@ namespace ProjectHub.Service
 
 		public ProjectModel GetProjectByName(string projectName)
 		{
-			var res = _elasticService.Search<ProjectModel>(q => q.Query(qm => qm.Term("name.keyword", projectName)));
+			var res = _elasticService.GetClient().Search<ProjectModel>(q => q.Query(qm => qm.Term("name.keyword", projectName)));
 			var projectids = res.Hits.Select(m =>
 			{
 				m.Source.Id = m.Id;

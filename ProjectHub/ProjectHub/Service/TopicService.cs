@@ -36,7 +36,7 @@ namespace ProjectHub.Service
 
 		public TopicModel GetTopicByName (string topicName)
 		{
-			var res = _elasticService.Search<TopicModel>(q => q.Query(qm => qm.Term("name.keyword", topicName)));
+			var res = _elasticService.GetClient().Search<TopicModel>(q => q.Query(qm => qm.Term("name.keyword", topicName)));
 			var topic = res.Hits.Select(m =>
 			{
 				m.Source.Id = m.Id;
