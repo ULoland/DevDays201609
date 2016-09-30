@@ -13,7 +13,9 @@ namespace ProjectHub.Controllers
         // GET: Post
         public ActionResult Index()
         {
-            return View();
+            var model = new List<PostModel>();
+            //get from Elastic
+            return View(model);
         }
 
         [HttpGet]
