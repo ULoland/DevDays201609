@@ -11,18 +11,13 @@ namespace ProjectHub.Controllers
 {
     public class PostController : Controller
     {
-        // GET: Post
+	    private PostService _postService;
+	    // GET: Post
         public ActionResult Index()
         {
             
 			//get from Elastic
-			var el = new ElasticService();
-	        var cl = el.GetClient();
-	        var res = cl.Search<PostModel>();
-	        var model = res.Hits.Select(hit => {
-				hit.Source.Id = hit.Id;
-				return hit.Source;
-			}).ToList();
+	        var model = _postService.GetPosts();
 			return View(model);
         }
 

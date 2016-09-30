@@ -10,15 +10,12 @@ namespace ProjectHub.Controllers
 {
     public class ProjectController : Controller
     {
-        public ActionResult Index ()
+	    private ProjectService _projectService;
+
+	    public ActionResult Index ()
         {
-            var el = new ElasticService();
-            var cl = el.GetClient();
-            var res = cl.Search<ProjectModel>();
-            var model = res.Hits.Select(hit => {
-				hit.Source.Id = hit.Id;
-				return hit.Source;
-			}).ToList();
+
+	        var model = _projectService.GetProjects();
             return View(model);
         }
 
@@ -38,11 +35,10 @@ namespace ProjectHub.Controllers
             return View(model);
         }
 
-        [HttpGet]
+        [HttpGet] 
         public ActionResult Details(string Id)
         {
-            var el = new ElasticService();
-            ProjectModel model = el.GetClient().Get<ProjectModel>(Id).Source;
+	        var model = _projectService.GetProject(Id);
             return View(model);
         }
 
@@ -55,4 +51,6 @@ namespace ProjectHub.Controllers
         //    return View();
         //}
     }
+
+	
 }
