@@ -7,7 +7,7 @@ using Nest;
 
 namespace ProjectHub.Service
 {
-	public class ElasticService
+	public class ElasticService: ElasticClient
 	{
 		private ElasticClient _elastic;
 
@@ -15,7 +15,7 @@ namespace ProjectHub.Service
 		public ElasticService()
 		{
 
-			var nodes = new[] {"http://127.0.0.1:9200"};
+			var nodes = new[] { "http://192.168.43.212:9200/" };
 			
 			var nodeUris = nodes.Select(n => new Uri(n));
 			var connectionPool = new SniffingConnectionPool(nodeUris);
@@ -38,6 +38,11 @@ namespace ProjectHub.Service
 		public void IndexDocument<T>(T document) where T: class
 		{
 			_elastic.Index<T>(document);
+		}
+
+		public ElasticClient  GetClient()
+		{
+			return _elastic;
 		}
 	}
 }
