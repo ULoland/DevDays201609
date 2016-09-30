@@ -46,11 +46,10 @@ namespace ProjectHub.Service
 			return _elastic;
 		}
 
-		public IEnumerable<int>  GetProjectIds  (string text  )
+		public ProjectModel  GetProjectIds  (string text  )
 		{
-			var listofprojects = text.Split().Where(tt => tt.StartsWith("@"));
-			var res = _elastic.Search<ProjectModel>(q => q.Query(qm => qm.Terms(qt => qt.Field(p => p.KeywordName).Terms( listofprojects) )));
-			var projectids = res.Hits.Select(m => m.Source.Id);
+			var res = _elastic.Search<ProjectModel>(q => q.Query(qm => qm.Term(qt => qt.KeywordName, text )));
+			var projectids = res.Hits.Select(m => m.Source).FirstOrDefault();
 			return projectids;
 		}
 	}
