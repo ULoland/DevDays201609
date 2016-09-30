@@ -46,17 +46,45 @@ namespace ProjectHub.Controllers
         private void ResolveDependencies(ref PostModel model)
         {
             ResolveProjects(ref model);
+            ResolveTopics(ref model);
         }
         private void ResolveProjects(ref PostModel model)
         {
             var regex = new Regex(@"(^@|(?<=\s)@\w+)");
 
-            var matches = regex.Matches(model.Heading + model.PostText);
+            var matches = regex.Matches(model.Heading + model.PostText)
+                .OfType<Match>().Select(m => m.Groups[0].Value).Distinct();
             var el = new ElasticService();
 
             foreach (var match in matches)
             {
-                //var id = el.
+                var project = el.GetProjectIds(match.Replace("@", ""));
+                if (project != null)
+                {
+                    model.Heading = model.Heading.Replace(match, match + $"[{project.Id}]");
+                    model.PostText = model.PostText.Replace(match, match + $"[{project.Id}]");
+                    model.Project.Add(project);
+                }
+            }
+        }
+
+        private void ResolveTopics(ref PostModel model)
+        {
+            var regex = new Regex(@"(^#|(?<=\s)#\w+)");
+
+            var matches = regex.Matches(model.Heading + model.PostText)
+                .OfType<Match>().Select(m => m.Groups[0].Value).Distinct();
+            var el = new ElasticService();
+
+            foreach (var match in matches)
+            {
+                var topic = el.GetProjectIds(match.Replace("#", ""));
+                if (topic != null)
+                {
+                    model.Heading = model.Heading.Replace(match, match + $"[{topic.Id}]");
+                    model.PostText = model.PostText.Replace(match, match + $"[{topic.Id}]");
+                    //model.Topics.Add(topic);
+                }
             }
         }
     }
