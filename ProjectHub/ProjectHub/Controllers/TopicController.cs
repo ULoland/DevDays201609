@@ -20,21 +20,11 @@ namespace ProjectHub.Controllers
         // GET: Topic
         public ActionResult Index()
         {
-            var vm = new List<TopicModel>
-            {
-                new TopicModel
-                {
-                    Name = "C#",
-                    Description = "C# Language"
-                },
-                new TopicModel
-                {
-                    Name = "ASP.NET",
-                    Description = "ASP.NET Framework"
-                },
-            };
+            var cl = _elasticService.GetClient();
+            var res = cl.Search<TopicModel>();
+            var model = res.Hits.Select(hit => hit.Source).ToList();
 
-            return View(vm);
+            return View(model);
         }
 
         public ActionResult Create()
