@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace ProjectHub
 {
@@ -13,7 +14,7 @@ namespace ProjectHub
         {
             if (string.IsNullOrWhiteSpace(value))
                 return value;
-            return value.ResolveProjectLinks();
+            return value.ResolveProjectLinks().ResolveTopicLinks();
         }
 
         private static string ResolveProjectLinks(this string value)
@@ -29,13 +30,15 @@ namespace ProjectHub
                 if (idStart > 0)
                 {
                     var idStop = match.IndexOf("]", idStart, StringComparison.Ordinal);
-                    var id = idStop > idStart+1 
-                        ? match.Substring(idStart + 1, idStop - idStart)
+                    var projectId = idStop > idStart+1 
+                        ? match.Substring(idStart + 1, idStop - idStart - 1)
                         : string.Empty;
-                    if (!string.IsNullOrWhiteSpace(id))
+                    if (!string.IsNullOrWhiteSpace(projectId))
                     {
-                        var helper = new UrlHelper();
-                        href = helper.Action("Details", "Project", new {id = id});
+                        var routeVal = new RouteValueDictionary();
+                        routeVal.Add("id", projectId);
+                        var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                        href = helper.Action("Details", "Project", routeVal);
                     }
                     text = match.Substring(0, idStart);
                 }
@@ -57,13 +60,15 @@ namespace ProjectHub
                 if (idStart > 0)
                 {
                     var idStop = match.IndexOf("]", idStart, StringComparison.Ordinal);
-                    var id = idStop > idStart + 1
-                        ? match.Substring(idStart + 1, idStop - idStart)
+                    var topicId = idStop > idStart + 1
+                        ? match.Substring(idStart + 1, idStop - idStart - 1)
                         : string.Empty;
-                    if (!string.IsNullOrWhiteSpace(id))
+                    if (!string.IsNullOrWhiteSpace(topicId))
                     {
-                        var helper = new UrlHelper();
-                        href = helper.Action("Details", "Topic", new { id = id });
+                        var routeVal = new RouteValueDictionary();
+                        routeVal.Add("id", topicId);
+                        var helper = new UrlHelper(HttpContext.Current.Request.RequestContext);
+                        href = helper.Action("Details", "Topic", routeVal);
                     }
                     text = match.Substring(0, idStart);
                 }
