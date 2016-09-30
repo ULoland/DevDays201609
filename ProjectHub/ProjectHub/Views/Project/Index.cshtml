@@ -4,7 +4,13 @@
     ViewBag.Title = "Projectlist";
 }
 
+
+
+<a style="float:right; margin-bottom:15px; padding:20px 35px; background:#eee; color:black;text-decoration:none;" href="/Project/Create">Create new project</a>
+
 <h2>@ViewBag.Title</h2>
+
+
 
 @foreach(var project in Model)
 {
@@ -13,3 +19,5 @@
     
     <hr />
 }
+
+
