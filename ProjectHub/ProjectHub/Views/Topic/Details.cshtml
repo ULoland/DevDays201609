@@ -1,4 +1,4 @@
-﻿@model ProjectHub.Models.TopicModel
+﻿@model ProjectHub.Models.Dto.TopicDetailDto
 
 @{
     ViewBag.Title = "Topic details";
@@ -27,6 +27,37 @@
         </dd>
 
     </dl>
+
+    <div class="list-group">
+        @foreach (var post in Model.Posts)
+        {
+            <a href="#" class="list-group-item">
+                <h4 class="list-group-item-heading">@post.Heading</h4>
+                <p class="list-group-item-text">
+                    @post.PostText
+                </p>
+            </a>
+        }
+    </div>
+
+    @*<table class="table">
+        <thead>
+        <tr>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+            @foreach (var post in Model.Posts)
+            {
+                <tr>
+                    <td>@post.</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+    
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
