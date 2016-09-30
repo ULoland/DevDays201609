@@ -42,6 +42,12 @@ namespace ProjectHub.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public ActionResult Details(string id)
+        {
+            TopicModel topic = _elasticService.GetClient().Get<TopicModel>(id).Source;
+            return View(topic);
+        }
+
         public ActionResult Edit()
         {
             return View(new TopicModel());

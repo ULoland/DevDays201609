@@ -58,7 +58,7 @@ namespace ProjectHub.Controllers
 
             foreach (var match in matches)
             {
-                var project = el.GetProjectIds(match.Replace("@", ""));
+                var project = el.GetProject(match.Replace("@", ""));
                 if (project != null)
                 {
                     model.Heading = model.Heading.Replace(match, match + $"[{project.Id}]");
@@ -78,7 +78,7 @@ namespace ProjectHub.Controllers
 
             foreach (var match in matches)
             {
-                var topic = el.GetProjectIds(match.Replace("#", ""));
+                var topic = el.GetProject(match.Replace("#", ""));
                 if (topic != null)
                 {
                     model.Heading = model.Heading.Replace(match, match + $"[{topic.Id}]");
