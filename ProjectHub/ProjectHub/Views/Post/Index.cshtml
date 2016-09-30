@@ -2,10 +2,11 @@
 @model List<ProjectHub.Models.PostModel>
 
 @{
-    ViewBag.Title = "Liste over poster";
+    ViewBag.Title = "All posts";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
+@Html.ActionLink("New post","Create")
 
 @foreach (var post in Model)
 {
