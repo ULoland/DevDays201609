@@ -1,21 +1,9 @@
-﻿@{
-    Layout = null;
+﻿@model List<ProjectHub.Models.ProjectModel>
+
+<h1>Title Goes here</h1>
+
+@foreach(var project in Model)
+{
+    <p>@project.Name</p>
+    <hr />
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        <h1>Creating a new Project Woooo \o/</h1>
-
-
-        
-
-    </div>
-</body>
-</html>

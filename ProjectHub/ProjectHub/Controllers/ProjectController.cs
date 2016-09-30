@@ -12,7 +12,11 @@ namespace ProjectHub.Controllers
     {
         public ActionResult Index ()
         {
-            return View();
+            var el = new ElasticService();
+            var cl = el.GetClient();
+            var res = cl.Search<ProjectModel>();
+            var model = res.Hits.Select(hit => hit.Source).ToList();
+            return View(model);
         }
 
         [HttpGet]

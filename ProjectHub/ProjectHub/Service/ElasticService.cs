@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Elasticsearch.Net;
 using Nest;
+using ProjectHub.Models;
 
 namespace ProjectHub.Service
 {
@@ -43,6 +44,14 @@ namespace ProjectHub.Service
 		public ElasticClient  GetClient()
 		{
 			return _elastic;
+		}
+
+		public IEnumerable<int>  GetProjectIds  (string text  )
+		{
+			var listofprojects = text.Split().Where(tt => tt.StartsWith("@"));
+			var res = _elastic.Search<ProjectModel>(q => q.Query(qm => qm.Terms(qt => qt.Field(p => p.KeywordName).Terms( listofprojects) )));
+			var projectids = res.Hits.Select(m => m.Source.Id);
+			return projectids;
 		}
 	}
 }
