@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProjectHub.Models;
+using ProjectHub.Models.Dto;
 using ProjectHub.Service;
 
 namespace ProjectHub.Controllers
@@ -17,6 +18,7 @@ namespace ProjectHub.Controllers
 	    public TopicController()
         {
 	        _topicService = new TopicService();
+            _postService = new PostService();
         }
 
         // GET: Topic
@@ -26,33 +28,44 @@ namespace ProjectHub.Controllers
             return View(model);
         }
 
-		public IEnumerable<PostModel>  GetListOfPostsForTopic(string topicID)
-		{
-			var posts = _postService.GetPostsForTopic(topicID);
-			return posts;
-		}
-
-		public ActionResult Create()
+        public ActionResult Create()
         {
             var model = new TopicModel();
             return View(model);
         }
 
-
-		public ActionResult Details(string id)
-		{
-			var topic = _topicService.GetTopic(id);
-			return View(topic);
-		}
-
-
-		[HttpPost]
+        [HttpPost]
         public ActionResult Create(TopicModel topic)
         {
             _elasticService.IndexDocument(topic);
             
             return RedirectToAction(nameof(Index));
         }
+
+        public ActionResult Details(string id)
+        {
+			var topic = _topicService.GetTopic(id);
+
+            var model = new TopicDetailDto
+            {
+                Name = topic.Name,
+                Description = topic.Description,
+                Posts = _postService.GetPostsForTopic(id)
+            };
+
+            return View(model);
+        }
+
+        //public IEnumerable<PostModel>  GetListOfPostsForTopic(string topicID)
+        //{
+        //    var cl = _elasticService.GetClient();
+        //    var res = cl.Search<PostModel>(mmd => mmd.Query(mq => mq.Term(qmt => qmt.Id,topicID) ));
+        //    var posts = res.Hits.Select(hit => {
+        //                                           hit.Source.Id = hit.Id;
+        //                                           return hit.Source;
+        //    }).ToList();
+        //    return posts;
+        //}
 
         public ActionResult Edit()
         {
