@@ -11,10 +11,7 @@ namespace ProjectHub.Models
         public string Id { get; set; }
 
         public string Name { get; set; }
-		[Keyword]
-		public string KewordName => Name;
-
-        public string Description { get; set; }
+		public string Description { get; set; }
 
     }
 }

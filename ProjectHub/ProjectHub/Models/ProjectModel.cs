@@ -13,9 +13,7 @@ namespace ProjectHub.Models
         public virtual List<PostModel> Posts { get; set; }
         public virtual List<TopicModel> Topics { get; set; }
 
-		[Keyword]
-		public string KeywordName => Name;
-
+		
 
     }
 }
