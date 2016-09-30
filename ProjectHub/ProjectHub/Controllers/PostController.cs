@@ -50,7 +50,7 @@ namespace ProjectHub.Controllers
         }
         private void ResolveProjects(ref PostModel model)
         {
-            var regex = new Regex(@"(^@|(?<=\s)@\w+)");
+            var regex = new Regex(@"(^@|(?<=\s)@[\w\.\-]+)");
 
             var matches = regex.Matches(model.Heading + " " + model.PostText)
                 .OfType<Match>().Select(m => m.Groups[0].Value).Distinct();
@@ -71,9 +71,9 @@ namespace ProjectHub.Controllers
 
         private void ResolveTopics(ref PostModel model)
         {
-            var regex = new Regex(@"(^#|(?<=\s)#\w+)");
+            var regex = new Regex(@"(^#|(?<=\s)#[\w\.\-]+)");
 
-            var matches = regex.Matches(model.Heading + model.PostText)
+            var matches = regex.Matches(model.Heading + " " + model.PostText)
                 .OfType<Match>().Select(m => m.Groups[0].Value).Distinct();
             var topicservice = new TopicService();
 
@@ -84,6 +84,8 @@ namespace ProjectHub.Controllers
                 {
                     model.Heading = model.Heading.Replace(match, match + $"[{topic.Id}]");
                     model.PostText = model.PostText.Replace(match, match + $"[{topic.Id}]");
+                    if (model.Topics == null)
+                        model.Topics = new List<TopicModel>();
                     model.Topics.Add(topic);
                 }
             }
