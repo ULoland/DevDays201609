@@ -1,6 +1,6 @@
 ﻿@model ProjectHub.Models.PostModel
 
 <div>
-    <h3>@Model.Heading</h3>
-    <p>@Model.PostText</p>
+    <h3>@Html.Raw(Model.Heading.ToStringWithLinks())</h3>
+    <p>@Html.Raw(Model.PostText.ToStringWithLinks())</p>
 </div>
