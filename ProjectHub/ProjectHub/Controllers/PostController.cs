@@ -23,6 +23,7 @@ namespace ProjectHub.Controllers
             return View(model);
         }
 
+        [HttpPost]
         public ActionResult Create(PostModel model)
         {
 			var el = new ElasticService();
