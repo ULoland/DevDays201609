@@ -4,62 +4,44 @@
     ViewBag.Title = "Topic details";
 }
 
-<h2>@ViewBag.Title</h2>
+<h2>@Model.Name</h2>
 
 <div>
-    <h4>@Model.Name</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-    </dl>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Description</h3>
+        </div>
+        <div class="panel-body">
+            <p>@Model.Description</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <strong>Pros</strong>
+                    <ul>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <strong>Cons</strong>
+                    <ul>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="list-group">
         @foreach (var post in Model.Posts)
         {
-            <a href="#" class="list-group-item">
-                <h4 class="list-group-item-heading">@post.Heading</h4>
-                <p class="list-group-item-text">
-                    @post.PostText
-                </p>
-            </a>
+            @Html.DisplayFor(x => post)
         }
     </div>
-
-    @*<table class="table">
-        <thead>
-        <tr>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-            @foreach (var post in Model.Posts)
-            {
-                <tr>
-                    <td>@post.</td>
-                </tr>
-            }
-        </tbody>
-    </table>*@
-
-    
-
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
