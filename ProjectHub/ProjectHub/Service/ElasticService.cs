@@ -35,7 +35,7 @@ namespace ProjectHub.Service
 
 		}
 
-		public void indexDocument<T>(T document) where T: class
+		public void IndexDocument<T>(T document) where T: class
 		{
 			_elastic.Index<T>(document);
 		}

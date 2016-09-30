@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProjectHub.Models;
+using ProjectHub.Service;
 
 namespace ProjectHub.Controllers
 {
@@ -24,7 +25,9 @@ namespace ProjectHub.Controllers
 
         public ActionResult Create(PostModel model)
         {
-            return View(model);
+			var el = new ElasticService();
+			el.IndexDocument(model);
+			return View(model);
         }
     }
 }
